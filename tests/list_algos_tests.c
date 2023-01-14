@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string.h>
 
-char *values[] = {"XXXX", "1234", "abcd", "xjvef", "NDSS"};
+char *values[] = {"3", "1", "5", "2", "4"};
 
 #define NUM_VALUES 5
 
