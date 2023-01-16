@@ -2,12 +2,14 @@
 #include <lcthw/darray_algos.h>
 
 int testcmp(char **a, char **b){
+    check(*a && *b, "given NULL in testcmp()! ");
     return strcmp(*a, *b);
+error: exit(-1); // 很暴力！！！
 }
 
 DArray *create_words(){
     DArray *result = darray_create(0, 5);
-    char *words[] = {"cddadad", "faddfqf", "45sfwefd", "s5f6a5f6", "vzbggnd"};
+    char *words[] = {"faadadva", "89acja", "ia0adkc", "c9a9ia", "3ja9aaaaaaaaaa"};
     int i = 0;
 
     for(i = 0; i < 5; ++i){

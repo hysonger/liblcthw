@@ -6,7 +6,7 @@
 #include <lcthw/dbg.h>
 
 typedef struct DArray{
-    unsigned int end;
+    unsigned int end; // =count !!!
     unsigned int max;
     size_t element_size;
     size_t expand_rate;

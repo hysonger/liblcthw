@@ -27,11 +27,11 @@
     "[INFO] (%s:%d) " M "\n",\
     __FILE__, __LINE__, ##__VA_ARGS__)
 
-// 检查条件，为假则出错
+// 检查条件，为假则报错并跳到error
 #define check(A, M, ...) if(!(A)) {\
     log_err(M, ##__VA_ARGS__); errno = 0; goto error; }
 
-// 表示“不该运行”，运行到此即出错
+// 表示“不该运行”，运行到此即报错并跳到error
 #define sentinel(M, ...) { log_err(M, ##__VA_ARGS__);\
     errno = 0; goto error; }
 
