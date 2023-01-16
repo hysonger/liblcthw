@@ -24,7 +24,7 @@ error:
 // 带安全地检查上界的remove
 void *darray_remove(DArray *array, unsigned int i){
     check(i < array->max, "darray attempt to remove past max");
-    void *elem = array->contents[i];
+    void *elem = darray_get(array, i);
 
     array->contents[i] = NULL;
 
@@ -123,7 +123,7 @@ int darray_push(DArray *array, void *elem){
 
     //check_mem(array->contents[array->end]);
     array->end++;
-    return darray_set(array, array->end - 1, elem);
+    return darray_set(array, array->end - 1, elem); // 因为已经让end+1，所以不要忘记取-1
 }
 
 // 弹出darray尾部的一项

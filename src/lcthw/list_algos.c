@@ -19,7 +19,7 @@ int list_bubble_sort(List *list, list_compare cmp){
 
     // 从前向后冒泡，有序部分集合在尾部
     for(i = 0, p = list->last; i < list_count(list) - 1 && p != list->first; ++i, p = p->prev){
-        for(j = 0, cur = list->first; j < list_count(list) - i - 1 && cur != p; cur = cur->next){
+        for(j = 0, cur = list->first; j < list_count(list) - i - 1 && cur != p; ++j, cur = cur->next){
             if(cur->next){
                 if(cmp(cur->value, cur->next->value) > 0){
                     exchange_listnode(cur, cur->next);
@@ -36,7 +36,7 @@ int list_bubble_sort(List *list, list_compare cmp){
     return 0;
 }
 
-
+// 两个子列的合并操作
 List *list_merge(List *a, List *b, list_compare cmp){
     List *result = list_create();
 
