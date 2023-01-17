@@ -1,4 +1,5 @@
 // 动态数组算法
+// i have to implement every single algorithm but it is a good chance to practice
 
 #include <lcthw/darray_algos.h>
 

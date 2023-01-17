@@ -14,6 +14,7 @@ error:
     return;
 }
 
+// 对链表的冒泡排序
 int list_bubble_sort(List *list, list_compare cmp){
     int i, j; // 加计数彻底封死“逃逸”
     ListNode *p, *cur;
@@ -62,6 +63,7 @@ List *list_merge(List *a, List *b, list_compare cmp){
     return result;
 }
 
+// 对链表进行归并排序
 // 递归过程：对左子列归并排序，对右子列归并排序，合并
 List *list_merge_sort(List *list, list_compare cmp){
     int middle = list_count(list) / 2; // 分割点

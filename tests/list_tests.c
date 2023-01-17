@@ -21,6 +21,7 @@ char *test_destroy(){
 }
 
 char *test_push_pop(){
+    // 压入三项，检查值和个数
     list_push(list, test1);
     mu_assert(list_last(list) == test1, "Wrong last value.");
 
@@ -31,6 +32,7 @@ char *test_push_pop(){
     mu_assert(list_last(list) == test3, "Wrong last value.");
     mu_assert(list_count(list) == 3, "Wrong count on push.");
 
+    // 弹出三项，检查值和个数
     char *val = list_pop(list);
     mu_assert(val == test3, "Wrong value on pop.");
 
@@ -40,6 +42,8 @@ char *test_push_pop(){
     val = list_pop(list);
     mu_assert(val == test1, "Wrong value on pop.");
     mu_assert(list_count(list) == 0, "Wrong count on push.");
+
+    mu_assert(!list_pop(list), "Should return NULL poping an empty list");
 
     return NULL;
 }
