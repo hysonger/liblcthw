@@ -71,7 +71,7 @@ void darray_clear(DArray *array){
     }
 }
 
-// 释放contents指针数组本身
+// 释放contents指针数组本身；注意darray本身直接用free()即可
 void darray_destroy(DArray *array){
     if(array->max > 0){
         if(array->contents){

@@ -2,7 +2,7 @@
 
 #include <lcthw/darray_algos.h>
 
-// 负责执行递归任务的内部函数体
+// 执行递归的内部函数体
 static int __darray_qsort(DArray *array, unsigned int low, unsigned int high, darray_compare cmp){
     void *pivot = darray_get(array, low);
     void *pi = darray_get(array, low), *pj = darray_get(array, high);
@@ -39,6 +39,7 @@ static int __darray_qsort(DArray *array, unsigned int low, unsigned int high, da
     }
 }
 
+
 // 调整堆顶使其符合堆要求。head从1开始，建立大根堆
 static void __darray_adjust_head(DArray *array, unsigned int head, unsigned int len, darray_compare cmp){
     void *root, *left, *right, *cur;
@@ -72,6 +73,49 @@ static void __darray_adjust_head(DArray *array, unsigned int head, unsigned int 
 
     //print_darray(array);
 }
+
+
+// 合并子列；需要一个辅助空间 low~mid mid+1~high
+static void __darray_merge(DArray *array, unsigned int low, unsigned int mid, unsigned int high, darray_compare cmp){
+    DArray *buffer = darray_create(sizeof(void *), high - low + 1);
+    unsigned i, j, k;
+    void *a, *b;
+
+    for(i = low; i <= high; ++i){
+        darray_set(buffer, i - low, darray_get(array, i));
+    }
+
+    for(k = 0, i = 0, j = mid - low + 1; i <= mid - low || j <= high - low; ++k){
+        if(i <= mid - low && j <= high - low){
+            a = darray_get(buffer, i);
+            b = darray_get(buffer, j);
+            if(cmp(&a, &b) < 0){
+                darray_set(array, k + low, a); i++;
+            }else{
+                darray_set(array, k + low, b); j++;
+            }
+        }else if(i > mid - low){ // 前半表已出完
+            darray_set(array, k + low, darray_get(buffer, j++));
+        }else{
+            darray_set(array, k + low, darray_get(buffer, i++));
+        }
+    }
+
+    // 不要忘记回收内存！！！
+    darray_destroy(buffer); free(buffer);
+}
+
+
+// 执行递归的内部函数体
+static void __darray_mergesort(DArray *array, unsigned int low, unsigned int high, darray_compare cmp){
+    if(low < high){
+        int mid = (low + high) / 2;
+        __darray_mergesort(array, low, mid, cmp);
+        __darray_mergesort(array, mid + 1, high, cmp);
+        __darray_merge(array, low, mid, high, cmp);
+    }
+}
+
 
 
 // 对动态数组进行快速排序
@@ -115,6 +159,9 @@ int darray_heapsort(DArray *array, darray_compare cmp){
 
 // 对动态数组进行归并排序
 int darray_mergesort(DArray *array, darray_compare cmp){
-    qsort(array->contents, array->end, sizeof(void *), cmp);
+    //qsort(array->contents, array->end, sizeof(void *), cmp);
+
+    __darray_mergesort(array, 0, array->end - 1, cmp);
+
     return 0;
 }
