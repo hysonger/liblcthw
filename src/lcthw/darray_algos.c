@@ -12,6 +12,7 @@ static int __darray_qsort(DArray *array, unsigned int low, unsigned int high, da
     if(low < high){
         while(i < j){
             // 右边的值都应>=pivot，若有<，则停下，赋值
+            pj = darray_get(array, j);
             while(i < j && cmp(&pj, &pivot) >= 0){
                 j--;
                 pj = darray_get(array, j);
@@ -60,9 +61,9 @@ static void __darray_adjust_head(DArray *array, unsigned int head, unsigned int 
         cur = darray_get(array, curpos - 1);
         if(cmp(&root, &cur) < 0){ // 大小根堆逻辑
             // 比左右节点的大者更小，则该状态仍不满足堆要求，继续向下
-            darray_set(array, head - 1, cur); // 将较大值调整到堆顶上
+            darray_set(array, i - 1, cur); // !!! 将较大值调整到 父节点 上
  
-            // 下一轮假设原堆顶被“交换到大者处”
+            // 下一轮假设原堆顶被“交换到较大者处”
             i = curpos;                                           
         }else{ // 如果比左右节点的大者更大，则可以完成交换，停止循环跳出
             break;
