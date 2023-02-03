@@ -167,3 +167,24 @@ int darray_mergesort(DArray *array, darray_compare cmp){
 
     return 0;
 }
+
+// 二分搜索
+int darray_find(DArray *array, void *target, darray_compare cmp){
+    unsigned low = 1, high = array->end, mid;
+    void *pmid; int cmpres;
+
+    while(low < high){
+        mid = (low + high) / 2;
+        pmid = darray_get(array, mid - 1);
+        cmpres = cmp(&target, &pmid);
+        if(cmpres < 0){
+            high = mid - 1;
+        }else if(cmpres > 0){
+            low = mid + 1;
+        }else{
+            return mid - 1;
+        }
+    }
+
+    return -1;
+}

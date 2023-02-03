@@ -35,6 +35,7 @@
 #define sentinel(M, ...) { log_err(M, ##__VA_ARGS__);\
     errno = 0; goto error; }
 
+// 检查空指针，主要用于malloc后检查是否成功分配
 #define check_mem(A) check((A), "Out of memory.")
 
 // check和debug的组合

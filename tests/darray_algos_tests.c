@@ -90,12 +90,33 @@ char *test_mergesort(){
     return run_sort_test(darray_mergesort, "mergesort");
 }
 
+char *test_find(){
+    DArray *words = create_words();
+    int pos;
+    int a = -10;
+
+    darray_qsort(words, (darray_compare)testcmp); // 二分搜索只能用于排好序的对象
+
+    srand(time(0));
+    pos = rand() % words->end;
+
+    // pos强制转换为无符号不可省略，否则结果不可预测！
+    // 有符号与无符号数自动转换：1 运算：有符号变为无符号 2 比较 3 赋值 4 传参
+    mu_assert(darray_find(words, darray_get(words, (unsigned)pos), (darray_compare)testcmp) == pos, "failed finding a existed item");
+
+    //b = &a;
+    mu_assert(darray_find(words, &a, (darray_compare)testcmp) == -1, "shouldn't find an unknown item");
+
+    return NULL;
+}
+
 char *all_tests(){
     mu_suite_start();
 
     mu_run_test(test_qsort);
     mu_run_test(test_heapsort);
     mu_run_test(test_mergesort);
+    mu_run_test(test_find);
 
     return NULL;
 }

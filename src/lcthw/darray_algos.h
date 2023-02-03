@@ -12,4 +12,6 @@ int darray_heapsort(DArray *array, darray_compare cmp);
 
 int darray_mergesort(DArray *array, darray_compare cmp);
 
+int darray_find(DArray *array, void *target, darray_compare cmp);
+
 #endif
