@@ -1,6 +1,8 @@
 #ifndef _lcthw_radixmap_h
 #define _lcthw_radixmap_h
 
+#define RADIXMAP_OPTIMIZATION // 如果定义该处理符，则启用“如何改进程序”中所述的优化实现
+
 #include <stdint.h>
 #include <stdlib.h> // size_t在这里面！
 #include <stdio.h>
@@ -31,7 +33,7 @@ RadixMap *radixmap_create(size_t max);
 void radixmap_destroy(RadixMap *map);
 
 
-void radixmap_sort(RadixMap *map);
+void radixmap_sort(RadixMap *map, size_t start);
 
 
 RMElement *radixmap_find(RadixMap *map, uint32_t key);

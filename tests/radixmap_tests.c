@@ -49,18 +49,25 @@ error: return 0;
 }
 
 static char *test_operations(){
-    size_t N = 200;
+    size_t N = 10000;
+    clock_t t;
 
     RadixMap *map = radixmap_create(N);
     mu_assert(map != NULL, "Failed to make the map.");
-    mu_assert(make_map(map), "Didn't make the random fake radix map.");
 
-    radixmap_sort(map);
+    t = clock();
+    mu_assert(make_map(map), "Didn't make the random fake radix map.");
+    log_info("Making map used %lu", clock() - t);
+
+    t = clock();
+    radixmap_sort(map, 0);
+    log_info("sorting map used %lu", clock() - t);
     mu_assert(check_order(map), "Failed to properly sort the RadixMap.");
 
     mu_assert(test_search(map), "Failed the search test.");
     mu_assert(check_order(map), "RadixMap didn't stay sorted after search.");
 
+    t = clock();
     while(map->end > 0){
         RMElement *elem = radixmap_find(map, map->contents[map->end / 2].data.key);
         mu_assert(elem, "Should get a result.");
@@ -72,6 +79,7 @@ static char *test_operations(){
 
         mu_assert(check_order(map), "RadixMap didn't stay sorted after delete.");
     }
+    log_info("deleting map item used %lu", clock() - t);
 
     radixmap_destroy(map);
 

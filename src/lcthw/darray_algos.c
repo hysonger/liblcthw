@@ -173,7 +173,7 @@ int darray_find(DArray *array, void *target, darray_compare cmp){
     unsigned low = 1, high = array->end, mid;
     void *pmid; int cmpres;
 
-    while(low < high){
+    while(low <= high){
         mid = (low + high) / 2;
         pmid = darray_get(array, mid - 1);
         cmpres = cmp(&target, &pmid);
