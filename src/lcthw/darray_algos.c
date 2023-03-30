@@ -45,13 +45,13 @@ static int __darray_qsort(DArray *array, unsigned int low, unsigned int high, da
 // 调整堆顶使其符合堆要求。head从1开始，建立大根堆
 static void __darray_adjust_head(DArray *array, unsigned int head, unsigned int len, darray_compare cmp){
     void *root, *left, *right, *cur;
-    unsigned int i = head, curpos;
+    unsigned int i = head, curpos; // 注意，为了二叉树逻辑方便，这里的计数从1开始
 
     root = darray_get(array, head - 1);
     
     // 难点：这里直到最后才把原堆顶覆盖过去，在循环中，我们假设它“如果被覆盖到i位置，会是什么情况”
     while(i * 2 <= len){
-        if(i * 2 < len){
+        if(i * 2 < len){ // 有左右双子树
             left = darray_get(array, i * 2 - 1);
             right = darray_get(array, i * 2);
             curpos = cmp(&left, &right) > 0 ? (i * 2) : (i * 2 + 1); // 大小根堆逻辑，选大的

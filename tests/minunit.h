@@ -15,7 +15,7 @@
 #define mu_assert(test, message) if(!(test)){\
     log_err(message); return message;}
 
-// 运行一个测试函数并回显测试运行进度
+// 运行一个测试并回显测试运行进度
 #define mu_run_test(test) debug("\n-----%s", " " #test); \
     message = test(); tests_run++; if(message) return message;
 

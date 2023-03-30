@@ -16,9 +16,9 @@ error:
 
 // 对链表的冒泡排序
 int list_bubble_sort(List *list, list_compare cmp){
-    int i, j; // 加计数彻底封死“逃逸”
+    int i, j; // 加计数，作为双保险
     ListNode *p, *cur;
-    short flag = 0; // 遍历一轮中是否发生过交换
+    short flag = 0; // 记录遍历一轮中是否发生过交换
 
     // 从前向后冒泡，有序部分集合在尾部
     for(i = 0, p = list->last; i < list_count(list) - 1 && p != list->first; ++i, p = p->prev){
@@ -30,7 +30,7 @@ int list_bubble_sort(List *list, list_compare cmp){
                 }
             }else{break;}
         }
-        if(flag == 0){ // 如果未发生交换，说明表已有序，结束
+        if(flag == 0){ // 如果未发生交换，说明表已有序，可提前结束
             return 0;
         }else{
             flag = 0;
@@ -44,14 +44,13 @@ List *list_merge(List *a, List *b, list_compare cmp){
     List *result = list_create();
 
     while(a->first || b->first){
-        // p1 p2指针的移动必须放在这里面，不能放在for里，否则长度不一致会有一方越界！
-        if(a->first && b->first){
+        if(a->first && b->first){ // 二者比大小
             if(cmp(a->first->value, b->first->value) < 0){
                 list_push(result, list_shift(a));
             }else{
                 list_push(result, list_shift(b));
             }
-        }else{
+        }else{ // 只有一列有项，直出
             if(a->first){
                 list_push(result, list_shift(a));
             }else{
@@ -59,7 +58,7 @@ List *list_merge(List *a, List *b, list_compare cmp){
             }
         }
     }
-    list_destroy(a); list_destroy(b); // 内存回收
+    list_destroy(a); list_destroy(b); // 第一个内存回收注意点
     return result;
 }
 
@@ -84,7 +83,7 @@ List *list_merge_sort(List *list, list_compare cmp){
         p = p->next;
     }
 
-    // 这里按书上，也该把原始的up和down回收（只要不是count=1），第二个内存回收点
+    // 这里按书上，其实该把原始的up和down销毁（只要不是count=1），这是第二个内存回收注意点
     return list_merge(list_merge_sort(up, cmp), list_merge_sort(down, cmp), cmp); 
 }
 

@@ -1,7 +1,7 @@
-#ifndef _lcthw_list_algos_h
+ifndef _lcthw_list_algos_h
 #define _lcthe_list_algos_h
 
-#include <lcthw\list.h>
+#include <lcthw/list.h>
 
 typedef int (*list_compare) (const void *a, const void *b); // 指向函数的指针
 
