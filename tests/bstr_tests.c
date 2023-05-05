@@ -1,5 +1,5 @@
 #include "minunit.h"
-#include <lcthw/bstrlib.h>
+#include <bstrlib.h>
 #include <string.h>
 
 char *text = "to hello world or not, that is a question";

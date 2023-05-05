@@ -4,3 +4,6 @@
 *.exe
 *.stackdump
 build/*
+tests/*
+!tests/*.c
+!tests/*.sh

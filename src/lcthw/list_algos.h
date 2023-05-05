@@ -1,4 +1,4 @@
-ifndef _lcthw_list_algos_h
+#ifndef _lcthw_list_algos_h
 #define _lcthe_list_algos_h
 
 #include <lcthw/list.h>

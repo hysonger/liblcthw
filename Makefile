@@ -2,6 +2,7 @@
 
 # 定义编译参数和额外链接库,可以在make参数中指定OPTFLAGS和OPTLIBS追加
 CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
+#CFLAGS=-g -O2 -Wall -Wextra -Isrc -DNDEBUG $(OPTFLAGS)
 #C_INCLUDE_PATH=./src/
 LIBS=-ldl $(OPTLIBS)
 

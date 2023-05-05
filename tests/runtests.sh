@@ -1,6 +1,6 @@
 echo "Running unit tests:"
 
-for i in tests/*_tests.exe
+for i in tests/*_tests
 do
     if $i
     then
